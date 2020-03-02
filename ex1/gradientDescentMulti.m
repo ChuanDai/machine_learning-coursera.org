@@ -7,7 +7,7 @@ function [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters
 m = length(y); % number of training examples
 J_history = zeros(num_iters, 1);
 
-for iter = 1:num_iters
+for iter = 1 : num_iters
 
     % ====================== YOUR CODE HERE ======================
     % Instructions: Perform a single gradient step on the parameter vector
@@ -17,15 +17,19 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
+    % create a copy of theta for simultaneous update.
+    theta_previous = theta;
 
+    % number of features.
+    f = size(X, 2);
 
+    for j = 1 : f
+        % calculate dJ/d(theta_j)
+        derivative = ((X * theta_previous - y)' * X(:, j)) / m;
 
-
-
-
-
-
-
+        % update theta_j
+        theta(j) = theta_previous(j) - (alpha * derivative);
+    end
 
     % ============================================================
 
